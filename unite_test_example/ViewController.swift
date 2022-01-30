@@ -11,10 +11,16 @@ class ViewController: UITableViewController {
     
     private let cellID = "profile-cell"
     
+    var profileController: ProfileController? = ProfileController()
+    
     var profile: Profile? {
         didSet {
             tableView.reloadData()
         }
+    }
+    
+    deinit{
+        profileController = nil
     }
 
     override func viewDidLoad() {
@@ -38,7 +44,7 @@ class ViewController: UITableViewController {
     }
     
     @IBAction func getBadgesButtonPressed(_ sender: UIBarButtonItem) {
-        ProfileController().fetchProfileWithURL { [weak self] profile in
+        profileController?.fetchProfileWithURL { [weak self] profile in
             if let strongSelf = self {
                 strongSelf.profile = profile
             }
